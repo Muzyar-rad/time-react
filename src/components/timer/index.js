@@ -5,14 +5,12 @@ export default class Timer extends Component {
   state = {
     time: 0,
   };
-  componentDidMount() {
+  componentDidMount = () => {
     this.timer(this.props.initial);
-    window.location = "/";
-  }
+  };
   timer = (time) => {
-    for (let i = time; i > -1; i--) {
-      this.setState({ time: i });
-    }
+    this.setState({ time });
+    setInterval(() => this.setState({ time: this.state.time - 1 }), 1000);
   };
   render() {
     let { time } = this.state;
