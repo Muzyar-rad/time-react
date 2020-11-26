@@ -20,12 +20,17 @@ export default class Timer extends Component {
   };
 
   stopTime = () => {
-    let currentTime = this.state.time;
+    const currentTime = this.state.time;
     this.setState({ time: currentTime, isStopped: true });
+  };
+  continueTime = () => {
+    const currentTime = this.state.time;
+    this.setState({ isStopped: false });
+    this.timer(currentTime);
   };
 
   render() {
-    let { time } = this.state;
+    const { time } = this.state;
     return (
       <div className="mt-100 layout-column align-items-center justify-content-center">
         <div className="timer-value" data-testid="timer-value">
@@ -37,6 +42,9 @@ export default class Timer extends Component {
           onClick={this.stopTime}
         >
           Stop Timer
+        </button>
+        <button className="large" onClick={this.continueTime}>
+          Continue Timer
         </button>
       </div>
     );
