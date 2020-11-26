@@ -6,12 +6,23 @@ export default class Timer extends Component {
     time: 0,
   };
   componentDidMount = () => {
-    this.timer(this.props.initial);
+    this.timer(5);
   };
   timer = (time) => {
     this.setState({ time });
-    setInterval(() => this.setState({ time: this.state.time - 1 }), 1000);
+    return setInterval(() => {
+      return this.setState(
+        this.state.time !== 0 ? { time: this.state.time - 1 } : { time: 0 }
+      );
+    }, 1000);
   };
+
+  stopTime = () => {
+    const id = this.timer(this.props.initial);
+    console.log(id);
+    clearInterval(id);
+  };
+
   render() {
     let { time } = this.state;
     return (
@@ -19,7 +30,11 @@ export default class Timer extends Component {
         <div className="timer-value" data-testid="timer-value">
           {time}
         </div>
-        <button className="large" data-testid="stop-button">
+        <button
+          className="large"
+          data-testid="stop-button"
+          onClick={this.stopTime}
+        >
           Stop Timer
         </button>
       </div>
