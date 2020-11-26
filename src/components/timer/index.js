@@ -4,13 +4,15 @@ import "./index.css";
 export default class Timer extends Component {
   state = {
     time: 0,
+    isStopped: false,
   };
   componentDidMount = () => {
-    this.timer(5);
+    this.timer(this.props.initial);
   };
   timer = (time) => {
     this.setState({ time });
     return setInterval(() => {
+      if (this.state.isStopped === true) return;
       return this.setState(
         this.state.time !== 0 ? { time: this.state.time - 1 } : { time: 0 }
       );
@@ -18,9 +20,8 @@ export default class Timer extends Component {
   };
 
   stopTime = () => {
-    const id = this.timer(this.props.initial);
-    console.log(id);
-    clearInterval(id);
+    let currentTime = this.state.time;
+    this.setState({ time: currentTime, isStopped: true });
   };
 
   render() {
