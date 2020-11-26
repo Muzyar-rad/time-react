@@ -24,9 +24,12 @@ export default class Timer extends Component {
     this.setState({ time: currentTime, isStopped: true });
   };
   continueTime = () => {
-    const currentTime = this.state.time;
     this.setState({ isStopped: false });
-    this.timer(currentTime);
+  };
+
+  restartTime = () => {
+    const id = this.timer(this.props.initial);
+    clearInterval(id);
   };
 
   render() {
@@ -45,6 +48,9 @@ export default class Timer extends Component {
         </button>
         <button className="large" onClick={this.continueTime}>
           Continue Timer
+        </button>
+        <button className="large" onClick={this.restartTime}>
+          Restart Timer
         </button>
       </div>
     );
